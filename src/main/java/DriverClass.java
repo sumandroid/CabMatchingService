@@ -1,6 +1,7 @@
 import domain.models.Driver;
 import domain.models.Rider;
 import domain.models.User;
+import exceptions.DriverNotFoundException;
 import services.MatchingService;
 import services.MatchingServiceImpl;
 import strategies.MatchingStrategy;
@@ -63,6 +64,7 @@ public class DriverClass {
     private static void findDriver(MatchingService matchingService, String riderName) {
         try {
             String driver = matchingService.matchDriver(riderName);
+            if(driver == null) throw new DriverNotFoundException("No driver found for :" + riderName);
             System.out.println("Driver " + driver + " is matched for " + riderName);
         } catch (Exception e) {
             System.out.println(e.getMessage());
